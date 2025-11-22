@@ -86,8 +86,8 @@ const RobotBody = () => {
         </Text>
 
         {/* Side Bumper Ring - Sleek Dark */}
-        <mesh position={[0, -0.1, 0]}>
-            <torusGeometry args={[1.82, 0.08, 16, 100]} rotation={[Math.PI / 2, 0, 0]}/>
+        <mesh position={[0, -0.1, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[1.82, 0.08, 16, 100]} />
             <meshStandardMaterial color="#292524" roughness={0.4} />
         </mesh>
 
@@ -98,8 +98,8 @@ const RobotBody = () => {
         </mesh>
 
         {/* Orange LED Strip / Status Light - Pulsing */}
-        <mesh position={[0, 0.15, 0]}>
-            <torusGeometry args={[1.72, 0.015, 16, 100]} rotation={[Math.PI / 2, 0, 0]}/>
+        <mesh position={[0, 0.15, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[1.72, 0.015, 16, 100]} />
             <meshBasicMaterial color="#fb923c" toneMapped={false} />
         </mesh>
 
@@ -178,11 +178,11 @@ const FloatingParticles = () => {
     )
 }
 
-export const HeroScene: React.FC = () => {
+export const HeroScene: React.FC<{ isDarkMode?: boolean }> = ({ isDarkMode = false }) => {
   return (
     <div className="absolute inset-0 z-0">
       <Canvas camera={{ position: [0, 4, 7], fov: 40 }} shadows>
-        <ambientLight intensity={1.2} />
+        <ambientLight intensity={isDarkMode ? 0.5 : 1.2} />
         {/* Key Light */}
         <spotLight 
             position={[6, 8, 6]} 
@@ -196,7 +196,7 @@ export const HeroScene: React.FC = () => {
         {/* Rim Light (Warm) */}
         <spotLight position={[-5, 2, -5]} angle={0.5} penumbra={1} intensity={3} color="#fb923c" />
         {/* Fill Light (Cool) */}
-        <pointLight position={[-5, 5, 5]} intensity={0.8} color="#e0f2fe" />
+        <pointLight position={[-5, 5, 5]} intensity={0.8} color={isDarkMode ? "#1e293b" : "#e0f2fe"} />
         
         <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
             <RobotBody />
@@ -208,13 +208,14 @@ export const HeroScene: React.FC = () => {
             scale={12} 
             blur={2} 
             far={5} 
+            color={isDarkMode ? '#000000' : '#000000'}
         />
 
         <FloatingParticles />
 
-        <Environment preset="city" />
+        <Environment preset={isDarkMode ? "night" : "city"} />
         {/* Use fog to blend the floor seamlessly into the background */}
-        <fog attach="fog" args={['#f5f5f4', 5, 25]} />
+        <fog attach="fog" args={[isDarkMode ? '#0c0a09' : '#f5f5f4', 5, 25]} />
       </Canvas>
     </div>
   );

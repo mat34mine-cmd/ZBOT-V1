@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEO: Autonomous Floor Care</title>
+    <title>ZBot: Autonomous Floor Care</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -18,7 +19,7 @@
             },
             colors: {
               nobel: {
-                gold: '#FB923C', // Changed to a soft orange/terracotta for "Home/Warmth"
+                gold: '#FB923C',
                 dark: '#1c1917',
                 cream: '#FFFFFF',
               }
@@ -36,6 +37,21 @@
         background-color: #FFFFFF;
         color: #1c1917;
       }
+      /* Custom Scrollbar for Webkit */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #d6d3d1;
+        border-radius: 4px;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background-color: #44403c;
+      }
+      
       @media print {
         nav, footer, button {
           display: none !important;
